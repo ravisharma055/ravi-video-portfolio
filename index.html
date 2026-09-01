@@ -6,6 +6,38 @@
 <meta name="theme-color" content="#070708" />
 <meta name="description" content="Ravi Sharma — Video Editor. Short-form editing, talking head, podcast and motion design." />
 <title>Ravi Sharma — Video Editor</title>
+<style>
+/* Global polish: keep every portfolio video in its real delivery ratio. */
+.card.v .media{aspect-ratio:9/16;height:auto;overflow:hidden}
+.card.w .media{aspect-ratio:16/9;height:auto;overflow:hidden}
+.card .media video{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+
+/* The 3D motion language is an ambient layer across the entire portfolio,
+   not a single isolated section. */
+.motionPlayground{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:0!important;z-index:2!important;pointer-events:none!important;border:0!important;background:transparent!important;overflow:hidden!important}
+.motionPlayground .playSticky{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;padding:0!important;display:block!important}
+.motionPlayground .motionIntro{display:none!important}
+.motionPlayground .playground{position:absolute!important;right:2vw!important;top:50%!important;width:min(650px,55vw)!important;height:520px!important;margin:0!important;opacity:.22!important;pointer-events:none!important;transform-origin:center!important;animation:globalMotionDrift 1s linear both!important;animation-timeline:scroll(root)!important;animation-range:0% 100%!important}
+.motionPlayground .tileMain{opacity:.95}
+.motionPlayground .tileBack,.motionPlayground .tileLeft{opacity:.7}
+.motionPlayground .halo,.motionPlayground .orbit,.motionPlayground .trail,.motionPlayground .particle{opacity:.8}
+@keyframes globalMotionDrift{
+  0%{transform:perspective(1200px) rotateX(5deg) rotateY(-10deg) translate3d(0,20px,0) scale(.88)}
+  25%{transform:perspective(1200px) rotateX(-4deg) rotateY(8deg) translate3d(-65px,-35px,0) scale(.96)}
+  50%{transform:perspective(1200px) rotateX(7deg) rotateY(-6deg) translate3d(55px,20px,0) scale(1.02)}
+  75%{transform:perspective(1200px) rotateX(-6deg) rotateY(10deg) translate3d(-40px,-30px,0) scale(.95)}
+  100%{transform:perspective(1200px) rotateX(4deg) rotateY(-8deg) translate3d(25px,35px,0) scale(1)}
+}
+/* Keep content above the ambient 3D layer without hiding it. */
+header{z-index:50!important}
+.hero,.section,.belief,.contact,footer{position:relative;z-index:3}
+@media(max-width:850px){
+  .motionPlayground .playground{right:-24vw!important;top:52%!important;width:560px!important;height:430px!important;opacity:.13!important}
+  .card.v .media{aspect-ratio:9/16}
+  .card.w .media{aspect-ratio:16/9}
+}
+@media(prefers-reduced-motion:reduce){.motionPlayground{display:none!important}}
+</style>
 </head>
 <body>
 <div id="root"></div>
