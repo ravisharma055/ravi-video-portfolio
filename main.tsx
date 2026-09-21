@@ -4,27 +4,38 @@ import App from './App';
 import './index.css';
 import './animations.css';
 
-function FloatingLaptop(){
-  const [p,setP]=useState({x:0,y:0,s:0});
+function SiteMotion(){
+  const [p,setP]=useState({x:.5,y:.5,s:0});
   useEffect(()=>{
     let raf=0;
     const move=(e:MouseEvent)=>{
       cancelAnimationFrame(raf);
-      raf=requestAnimationFrame(()=>setP({x:(e.clientX/innerWidth-.5),y:(e.clientY/innerHeight-.5),s:scrollY}));
+      raf=requestAnimationFrame(()=>setP(v=>({...v,x:e.clientX/innerWidth,y:e.clientY/innerHeight})));
     };
+    const scroll=()=>setP(v=>({...v,s:scrollY}));
     addEventListener('mousemove',move,{passive:true});
-    addEventListener('scroll',()=>setP(v=>({...v,s:scrollY})),{passive:true});
-    return()=>{cancelAnimationFrame(raf);removeEventListener('mousemove',move)};
+    addEventListener('scroll',scroll,{passive:true});
+    return()=>{cancelAnimationFrame(raf);removeEventListener('mousemove',move);removeEventListener('scroll',scroll)};
   },[]);
-  const rx=(-p.y*7)+(Math.sin(p.s*.002)*2), ry=p.x*10+(Math.sin(p.s*.0015)*3);
-  return <div className="floatingLaptop" aria-hidden="true" style={{'--rx':`${rx}deg`,'--ry':`${ry}deg`,'--mx':`${p.x*18}px`,'--my':`${p.y*-12}px`} as React.CSSProperties}>
-    <div className="laptopGlow"/>
-    <div className="laptopScreen"><div className="screenTop"><i/><i/><i/><span>RAVI / MOTION</span></div><div className="screenGrid"/><div className="screenFrame frameA"><b>EDIT</b><em>01</em></div><div className="screenFrame frameB"><b>MOTION</b><em>02</em></div><div className="screenFrame frameC"><b>STORY</b><em>03</em></div><div className="screenScan"/></div>
-    <div className="laptopBase"><div className="keyboard"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div><div className="trackpad"/></div>
-    <div className="laptopShadow"/>
+  return <div className="siteMotion" aria-hidden="true" style={{
+    '--mx':`${(p.x-.5)*24}px`,'--my':`${(p.y-.5)*18}px`,
+    '--rx':`${(0.5-p.y)*10}deg`,'--ry':`${(p.x-.5)*13}deg`,
+    '--scroll':`${p.s*.035}deg`
+  } as React.CSSProperties}>
+    <div className="motionAura"/>
+    <div className="motionGrid"/>
+    <div className="motionRing ring1"/><div className="motionRing ring2"/><div className="motionRing ring3"/>
+    <div className="motionDevice">
+      <div className="deviceGlow"/>
+      <div className="deviceScreen">
+        <div className="deviceBar"><i/><i/><i/><span>RAVI / VISUAL SYSTEM</span><b>●</b></div>
+        <div className="deviceCanvas"><span className="canvasLine l1"/><span className="canvasLine l2"/><span className="canvasLine l3"/><div className="canvasBlock"/><div className="canvasBlock block2"/><div className="canvasBlock block3"/></div>
+        <div className="deviceScan"/>
+      </div>
+      <div className="deviceBase"><div className="deviceKeys">{Array.from({length:36}).map((_,i)=><i key={i}/>)}</div><div className="devicePad"/></div>
+    </div>
+    <div className="motionLabel labelA">MOTION / 01</div><div className="motionLabel labelB">DEPTH / 03</div>
   </div>
 }
-
-function Experience(){return <><App/><FloatingLaptop/></>}
-
+function Experience(){return <><App/><SiteMotion/></>}
 createRoot(document.getElementById('root')!).render(<React.StrictMode><Experience/></React.StrictMode>);
