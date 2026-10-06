@@ -1,10 +1,7 @@
-/* Minimal motion only: typography reveal, media hover, and a restrained cursor. */
-@keyframes heroLabel{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes heroWord{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@keyframes heroCopy{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.hero .label{animation:heroLabel .55s .06s both ease}.hero h1 span{animation:heroWord .65s .12s both ease}.hero h1 strong{animation:heroWord .65s .2s both ease}.heroFoot{animation:heroCopy .55s .3s both ease}
-.card .media{transition:box-shadow .3s ease}.card:hover .media{box-shadow:0 16px 40px rgba(0,0,0,.10)}
-.card .play{transition:transform .22s ease}.card:hover .play{transform:translate(-50%,-50%) scale(1.05)}
-.service b{transition:transform .2s ease}.service:hover b{transform:translate(3px,-3px)}
-.social a,.heroFoot a,.note a{transition:color .2s ease}
+/* Minimal, editorial motion. */
+@keyframes heroLabel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes heroWord{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes heroCopy{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero .label{animation:heroLabel .5s .06s both ease}.hero h1 span{animation:heroWord .6s .12s both ease}.hero h1 strong{animation:heroWord .6s .2s both ease}.heroFoot{animation:heroCopy .5s .3s both ease}
+.card .play{transition:transform .2s ease}.card:hover .play{transform:translate(-50%,-50%) scale(1.05)}.social a,.heroFoot a,.note a{transition:color .2s ease}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
