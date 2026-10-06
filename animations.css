@@ -1,28 +1,10 @@
-/* Deliberate, editorial motion — animation supports the work instead of competing with it. */
+/* Minimal motion only: typography reveal, media hover, and a restrained cursor. */
 @keyframes heroLabel{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes heroWord{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
-@keyframes heroAccent{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
-@keyframes heroCopy{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes lineReveal{from{transform:scaleX(0);transform-origin:left;opacity:0}to{transform:scaleX(1);transform-origin:left;opacity:.55}}
-@keyframes dotPulse{0%,100%{opacity:.7}50%{opacity:1}}
-.hero .label{animation:heroLabel .55s .08s both cubic-bezier(.22,1,.36,1)}
-.hero h1 span{animation:heroWord .7s .16s both cubic-bezier(.22,1,.36,1)}
-.hero h1 strong{animation:heroAccent .7s .28s both cubic-bezier(.22,1,.36,1)}
-.heroFoot{animation:heroCopy .6s .42s both cubic-bezier(.22,1,.36,1)}
-.hero aside{animation:heroCopy .6s .52s both cubic-bezier(.22,1,.36,1)}
-.hero aside i{animation:dotPulse 2.4s 1s infinite ease-in-out}
-.lines{animation:lineReveal .8s .02s both cubic-bezier(.22,1,.36,1)}
-
-/* Keep cards visually stable. No floating, fake depth or cursor-like decoration. */
-.card .media{transition:box-shadow .35s ease,filter .35s ease}.card:hover .media{transform:none!important;box-shadow:0 18px 50px rgba(0,0,0,.22)!important}
-.card .media img{transition:transform .7s cubic-bezier(.22,1,.36,1),filter .35s ease}.card:hover .media img{transform:scale(1.025);filter:brightness(.62)}
-.card .media video{transition:opacity .35s ease}.card:hover .media video{transform:none!important}
-.card .play{transition:transform .25s ease}.card:hover .play{transform:translate(-50%,-50%) scale(1.06)!important;box-shadow:none!important}
-.card .info h3{transition:color .25s ease}.card:hover .info h3{transform:none!important}
-
-.service{transition:background .25s ease}.service:hover{transform:none!important;padding-top:24px}.service b{transition:transform .25s ease}.service:hover b{transform:translate(3px,-3px)}
-.ctaTop,.bigCta{position:relative;overflow:hidden;isolation:isolate}.ctaTop:before,.bigCta:before{content:'';position:absolute;z-index:-1;inset:-80% 30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-180%) rotate(12deg);transition:transform .65s cubic-bezier(.22,1,.36,1)}.ctaTop:hover:before,.bigCta:hover:before{transform:translateX(180%) rotate(12deg)}
-.social a,.heroFoot a,.note a{position:relative;transition:color .25s ease}.social a:after,.heroFoot a:after,.note a:after{content:'';position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:var(--acid);transition:right .35s cubic-bezier(.22,1,.36,1)}.social a:hover:after,.heroFoot a:hover:after,.note a:hover:after{right:0}
-
-@media(max-width:850px){.card:hover .media{transform:none!important;box-shadow:none!important}.card:hover .info h3{transform:none!important}.hero:after,.hero:before,.hero .heroIn:before,.hero .heroIn:after{display:none!important}}
+@keyframes heroWord{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes heroCopy{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero .label{animation:heroLabel .55s .06s both ease}.hero h1 span{animation:heroWord .65s .12s both ease}.hero h1 strong{animation:heroWord .65s .2s both ease}.heroFoot{animation:heroCopy .55s .3s both ease}
+.card .media{transition:box-shadow .3s ease}.card:hover .media{box-shadow:0 16px 40px rgba(0,0,0,.10)}
+.card .play{transition:transform .22s ease}.card:hover .play{transform:translate(-50%,-50%) scale(1.05)}
+.service b{transition:transform .2s ease}.service:hover b{transform:translate(3px,-3px)}
+.social a,.heroFoot a,.note a{transition:color .2s ease}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
