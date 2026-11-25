@@ -9,6 +9,81 @@ const projects:Project[]=[
 {id:'tutorial',no:'05',title:'Talking Head / Tutorial',cat:'TUTORIAL · SOCIAL',ratio:'w',poster:'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1600',video:'https://res.cloudinary.com/exuhr3rh/video/upload/v1786361165/tutorial.mp4.mov',desc:'Tutorial editing where structure, captions and motion support the explanation.'},
 {id:'car',no:'06',title:'Car Edit',cat:'PERSONAL EXPERIMENT',ratio:'w',poster:'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=1600',video:'https://res.cloudinary.com/exuhr3rh/video/upload/v1786361135/car.mp4.mp4',desc:'A rhythm-first experiment built around music, sound design and movement.'}];
 const services=[['01','SHORT-FORM','Reels, Shorts and social-first content built around retention.'],['02','TALKING HEAD','Clean cuts, B-roll, captions and motion without unnecessary noise.'],['03','PODCAST','Natural conversation edits with strong pacing and sound.'],['04','MOTION DESIGN','Motion graphics when the idea needs movement.']];
-function Card({p,open}:{p:Project;open:(p:Project)=>void}){const ref=useRef<HTMLVideoElement>(null);return <article className={`card ${p.ratio} reveal`}><button className="media" onClick={()=>open(p)} onMouseEnter={()=>ref.current?.play().catch(()=>{})} onMouseLeave={()=>{if(ref.current){ref.current.pause();ref.current.currentTime=0}}}><video ref={ref} src={p.video} muted loop playsInline preload="auto" poster={p.poster}/><span className="mediaGrain"/><span className="shade"/><b className="num">{p.no}</b><span className="play">PLAY</span><span className="open">OPEN ↗</span></button><div className="info"><div><small>{p.cat}</small><h3>{p.title}</h3><p>{p.desc}</p></div><em>EDIT · STORY · MOTION</em></div></article>}
-export default function App(){const[active,setActive]=useState<Project|null>(null);const[menu,setMenu]=useState(false);useEffect(()=>{const ring=document.querySelector('.cursorRing') as HTMLElement|null;const dot=document.querySelector('.cursorDot') as HTMLElement|null;const move=(e:MouseEvent)=>{if(ring)ring.style.transform=`translate3d(${e.clientX-18}px,${e.clientY-18}px,0)`;if(dot)dot.style.transform=`translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`};const over=()=>document.body.classList.add('cursorHover');const out=()=>document.body.classList.remove('cursorHover');addEventListener('mousemove',move);document.querySelectorAll('a,button,.media').forEach(x=>{x.addEventListener('mouseenter',over);x.addEventListener('mouseleave',out)});const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});document.querySelectorAll('.reveal').forEach(x=>io.observe(x));return()=>{removeEventListener('mousemove',move);io.disconnect()}},[]);return <div className="site"><div className="cursorDot"/><div className="cursorRing"/><header><a className="brand" href="#top">RAVI SHARMA <small>VIDEO EDITOR</small></a><nav className={menu?'show':''}><a href="#work">WORK</a><a href="#approach">APPROACH</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></nav><a className="ctaTop" href="#contact">START A PROJECT ↗</a><button className="hamb" onClick={()=>setMenu(!menu)}>{menu?'CLOSE':'MENU'}</button></header><main id="top"><section className="hero"><div className="heroIn"><small className="label">INDEPENDENT VIDEO EDITOR · INDIA</small><h1><span>I EDIT</span><strong>ATTENTION.</strong></h1><div className="heroFoot"><p>I turn raw footage into content people actually want to finish — through timing, sound, story and motion.</p><a href="#work">VIEW SELECTED WORK ↓</a></div></div></section><section id="work" className="section"><div className="intro reveal"><div><small>01 / SELECTED WORK</small><h2>THE EDIT<br/><em>SPEAKS FIRST.</em></h2></div><p>Client work first. Experiments second. No fake numbers, no fake awards — just the work.</p></div><div className="lead"><Card p={projects[0]} open={setActive}/><div className="note reveal"><small>01 — 06</small><h3>GOOD EDITING<br/><em>FEELS INVISIBLE.</em></h3><p>The point isn't to show how much editing I can do. It's to make the content clearer, sharper and easier to watch.</p><a href="#contact">TALK ABOUT YOUR PROJECT ↗</a></div></div><div className="two"><Card p={projects[1]} open={setActive}/><Card p={projects[2]} open={setActive}/></div><div className="wide"><div className="rule"><span>04</span><small>MOTION / EXPERIMENTAL</small></div><Card p={projects[3]} open={setActive}/></div><div className="two lower"><Card p={projects[4]} open={setActive}/><Card p={projects[5]} open={setActive}/></div></section><section className="belief"><div className="reveal"><small>02 / EDITING BELIEF</small><h2>MORE EFFECTS<br/><span>≠</span> MORE VALUE.</h2><p>The strongest edit is the one that makes the viewer forget they're watching an edit.</p></div></section><section id="approach" className="section"><div className="topline"><small>03 / WHAT I CAN HELP WITH</small><small>01 — 04</small></div><div className="services">{services.map(s=><div className="service reveal" key={s[0]}><span>{s[0]}</span><h3>{s[1]}</h3><p>{s[2]}</p><b>↗</b></div>)}</div></section><section id="about" className="section about"><div className="aboutGrid reveal"><div><small>04 / ABOUT</small><h2>RAVI<br/><em>SHARMA.</em></h2></div><div><p className="large">I'm a video editor focused on content that needs to communicate, not just look cinematic.</p><p>I work across short-form, talking-head, podcast and motion design with DaVinci Resolve, After Effects and Photoshop.</p><div className="chips"><span>DAVINCI RESOLVE</span><span>AFTER EFFECTS</span><span>PHOTOSHOP</span></div></div></div></section><section id="contact" className="contact"><div className="reveal"><small>05 / LET'S WORK</small><h2>HAVE FOOTAGE<br/><em>WORTH EDITING?</em></h2><p>Send the brief. I'll tell you what I'd do with it.</p><a className="bigCta" href="mailto:ravisharma1234n@gmail.com">START A PROJECT ↗</a><div className="social"><a href="https://www.linkedin.com/in/ravi-sharma-b61aa7279" target="_blank" rel="noreferrer">LINKEDIN ↗</a><a href="https://x.com/meravi05" target="_blank" rel="noreferrer">X ↗</a><a href="mailto:ravisharma1234n@gmail.com">EMAIL ↗</a></div></div></section></main><footer><span>RAVI SHARMA · VIDEO EDITOR</span><span>ravisharma1234n@gmail.com · © 2026</span></footer>{active&&<div className="modal" onClick={()=>setActive(null)}><div className="player" onClick={e=>e.stopPropagation()}><button onClick={()=>setActive(null)}>CLOSE ×</button><video src={active.video} controls autoPlay playsInline poster={active.poster}/><small>{active.cat}</small><h3>{active.title}</h3></div></div>}</div>}
-const css=\`\`;\n
+
+function ProjectCard({p,index,onOpen}:{p:Project;index:number;onOpen:(p:Project)=>void}){
+ const videoRef=useRef<HTMLVideoElement>(null);
+ const play=()=>videoRef.current?.play().catch(()=>{});
+ const pause=()=>{if(videoRef.current){videoRef.current.pause();videoRef.current.currentTime=0}};
+ return <article className={`projectCard ${p.ratio} reveal`} style={{'--delay':`${index*90}ms`} as React.CSSProperties}>
+  <button className="projectMedia" onClick={()=>onOpen(p)} onMouseEnter={play} onMouseLeave={pause} aria-label={`Play ${p.title}`}>
+   <video ref={videoRef} src={p.video} poster={p.poster} muted loop playsInline preload="metadata"/>
+   <span className="mediaIndex">{p.no} / 06</span><span className="mediaAction">VIEW FILM <b>↗</b></span>
+  </button>
+  <div className="projectDetails"><div><small>{p.cat}</small><h3>{p.title}</h3></div><p>{p.desc}</p></div>
+ </article>
+}
+
+function Marquee(){return <div className="marquee" aria-hidden="true"><div className="marqueeTrack"><span>STORY FIRST</span><i>✳</i><span>THOUGHTFUL EDITING</span><i>✳</i><span>MOTION WITH PURPOSE</span><i>✳</i><span>STORY FIRST</span><i>✳</i><span>THOUGHTFUL EDITING</span><i>✳</i><span>MOTION WITH PURPOSE</span><i>✳</i></div></div>}
+
+export default function App(){
+ const [active,setActive]=useState<Project|null>(null);
+ const [menu,setMenu]=useState(false);
+ useEffect(()=>{
+  const ring=document.querySelector('.cursorRing') as HTMLElement|null;
+  const dot=document.querySelector('.cursorDot') as HTMLElement|null;
+  const move=(e:MouseEvent)=>{if(ring)ring.style.transform=`translate3d(${e.clientX-14}px,${e.clientY-14}px,0)`;if(dot)dot.style.transform=`translate3d(${e.clientX-2.5}px,${e.clientY-2.5}px,0)`};
+  const over=()=>document.body.classList.add('cursorHover');const out=()=>document.body.classList.remove('cursorHover');
+  addEventListener('mousemove',move);document.querySelectorAll('a,button').forEach(x=>{x.addEventListener('mouseenter',over);x.addEventListener('mouseleave',out)});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+  return()=>{removeEventListener('mousemove',move);io.disconnect()};
+ },[]);
+ return <div className="site">
+  <div className="cursorDot"/><div className="cursorRing"/>
+  <header><a className="brand" href="#top">RAVI<span>®</span><small>VIDEO EDITOR & MOTION DESIGNER</small></a>
+   <nav className={menu?'show':''}><a href="#work" onClick={()=>setMenu(false)}>WORK</a><a href="#services" onClick={()=>setMenu(false)}>SERVICES</a><a href="#about" onClick={()=>setMenu(false)}>ABOUT</a><a href="#contact" onClick={()=>setMenu(false)}>CONTACT</a></nav>
+   <a className="headerCta" href="#contact">LET'S TALK <span>↗</span></a><button className="hamb" onClick={()=>setMenu(!menu)}>{menu?'CLOSE':'MENU'}</button>
+  </header>
+  <main id="top">
+   <section className="hero">
+    <div className="heroMeta"><span>INDEPENDENT VIDEO EDITOR</span><span>BASED IN INDIA · AVAILABLE WORLDWIDE</span></div>
+    <div className="heroMain"><p className="eyebrow"><i/> VIDEO EDITING / STORYTELLING / MOTION</p>
+     <h1>MAKE EVERY<br/><em>FRAME</em> <span>COUNT.</span></h1>
+     <div className="heroBottom"><p>I help creators and brands turn raw footage into clear, engaging videos that make people stop, watch and remember.</p><a href="#work" className="roundLink"><span>EXPLORE<br/>MY WORK</span><b>↓</b></a></div>
+    </div>
+    <div className="heroVisual"><div className="heroVisualTop"><span>SELECTED FRAME / 2026</span><span>01—06</span></div><div className="heroVisualImage"><img src={projects[0].poster} alt="Selected healthcare video project"/><div className="heroVisualOverlay"><span>01</span><strong>STORIES<br/>IN MOTION.</strong><b>SCROLL TO EXPLORE ↓</b></div></div></div>
+    <div className="heroFootnote"><span>DAVINCI RESOLVE · AFTER EFFECTS · PHOTOSHOP</span><span>SCROLL TO DISCOVER ↓</span></div>
+   </section>
+
+   <section id="work" className="workSection">
+    <div className="sectionHead reveal"><div><p className="eyebrow">01 / SELECTED WORK</p><h2>LESS TALK.<br/><em>MORE PLAY.</em></h2></div><p>A selection of edits across healthcare, creator content, podcasts and motion. Each frame has a job to do.</p></div>
+    <div className="workGrid">
+     <ProjectCard p={projects[0]} index={0} onOpen={setActive}/>
+     <div className="workStatement reveal"><span className="statementNo">A NOTE ON MY WORK</span><h3>GOOD EDITING<br/>SHOULDN'T<br/><em>GET IN THE WAY.</em></h3><p>It should make the message easier to understand, the story easier to follow and the experience worth finishing.</p><a href="#services">WHAT I DO <b>↗</b></a></div>
+     <ProjectCard p={projects[1]} index={1} onOpen={setActive}/>
+     <ProjectCard p={projects[2]} index={2} onOpen={setActive}/>
+     <div className="workWideIntro reveal"><p className="eyebrow">02 / BEYOND THE CUT</p><h3>WHEN THE IDEA NEEDS<br/><em>A LITTLE MORE LIFE.</em></h3></div>
+     <ProjectCard p={projects[3]} index={3} onOpen={setActive}/>
+     <ProjectCard p={projects[4]} index={4} onOpen={setActive}/>
+     <ProjectCard p={projects[5]} index={5} onOpen={setActive}/>
+    </div>
+    <div className="workEnd"><span>THAT'S THE CURRENT SELECTION.</span><a href="#contact">HAVE A PROJECT IN MIND? ↗</a></div>
+   </section>
+
+   <Marquee/>
+
+   <section id="services" className="servicesSection">
+    <div className="sectionHead reveal"><div><p className="eyebrow">02 / WHAT I DO</p><h2>THE RIGHT EDIT<br/><em>FOR THE STORY.</em></h2></div><p>Different formats need different decisions. The goal stays the same: make every second count.</p></div>
+    <div className="serviceList">{services.map((s,i)=><div className="serviceRow reveal" key={s[0]}><span className="serviceNo">{s[0]}</span><h3>{s[1]}</h3><p>{s[2]}</p><span className="serviceArrow">↗</span></div>)}</div>
+   </section>
+
+   <section className="beliefSection"><div className="beliefInner reveal"><p className="eyebrow">A SIMPLE PRINCIPLE</p><h2>NOT MORE<br/>EFFECTS.<br/><em>MORE IMPACT.</em></h2><p>Transitions and motion are tools, not the point. Every cut, sound and graphic should earn its place.</p></div><div className="beliefStamp">R / 26</div></section>
+
+   <section id="about" className="aboutSection"><div className="aboutSide"><p className="eyebrow">03 / A LITTLE ABOUT ME</p><h2>HI, I'M<br/><em>RAVI.</em></h2></div><div className="aboutContent"><p className="aboutLead">A video editor focused on content that needs to communicate, not just look cinematic.</p><p>I work across short-form, talking-head, podcast and motion design — bringing structure, rhythm and clarity to every project.</p><div className="software"><span>TOOLS I WORK WITH</span><div><b>DaVinci Resolve</b><b>After Effects</b><b>Photoshop</b></div></div></div></section>
+
+   <section id="contact" className="contactSection"><p className="eyebrow">04 / HAVE A PROJECT?</p><h2>LET'S MAKE<br/><em>IT MATTER.</em></h2><div className="contactBottom"><p>Have footage, an idea or a project that needs a thoughtful edit? Send me a note.</p><a className="contactButton" href="mailto:ravisharma1234n@gmail.com">START A CONVERSATION <b>↗</b></a></div><div className="contactLinks"><a href="mailto:ravisharma1234n@gmail.com">EMAIL ↗</a><a href="https://www.linkedin.com/in/ravi-sharma-b61aa7279" target="_blank" rel="noreferrer">LINKEDIN ↗</a><a href="https://x.com/meravi05" target="_blank" rel="noreferrer">X ↗</a></div></section>
+  </main>
+  <footer><span>RAVI® — VIDEO EDITOR</span><span>MADE WITH INTENTION · © 2026</span><a href="#top">BACK TO TOP ↑</a></footer>
+  {active&&<div className="modal" onClick={()=>setActive(null)}><div className="player" onClick={e=>e.stopPropagation()}><button onClick={()=>setActive(null)}>CLOSE ×</button><video src={active.video} controls autoPlay playsInline poster={active.poster}/><small>{active.cat}</small><h3>{active.title}</h3></div></div>}
+ </div>
+}
